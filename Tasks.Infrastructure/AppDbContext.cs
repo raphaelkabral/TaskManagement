@@ -23,9 +23,16 @@ namespace Tasks.Infrastructure
             .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Task>()
-            .HasMany(t => t.Comments)
-            .WithOne(c => c.Task)
-            .OnDelete(DeleteBehavior.Cascade);
+                .HasMany(t => t.Histories)
+                .WithOne(h => h.Task)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Task>()
+                .HasMany(t => t.Comments)
+                .WithOne(c => c.Task)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }

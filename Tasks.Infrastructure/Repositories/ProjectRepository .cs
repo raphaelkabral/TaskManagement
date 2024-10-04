@@ -6,7 +6,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace TaskManagement.Infrastructure.Repository
 {
-    public  class ProjectRepository : IProjectRepository
+    public class ProjectRepository : IProjectRepository
     {
         private readonly AppDbContext _context;
 
@@ -15,23 +15,20 @@ namespace TaskManagement.Infrastructure.Repository
             _context = context;
         }
 
+
+
         public async Task<IEnumerable<Project>> GetAllAsync() =>
         await _context.Projects.ToListAsync();
 
         public async Task<Project> GetByIdAsync(int id) =>
-        await _context.Projects.FindAsync(id);
+                await _context.Projects.FindAsync(id);
+        public async Task<IEnumerable<Project>> GetAllByUserIdAsync(int userId) =>
+            await _context.Projects.Where(p => p.UserId == userId).ToListAsync();
 
-        public async Task AddAsync(Project project)
-        {
-            _context.Projects.Add(project);
-            await _context.SaveChangesAsync();
-        }
+        public async Task AddAsync(Project project) => await _context.Projects.AddAsync(project);
+        public async Task RemoveAsync(Project project) => _context.Projects.Remove(project);
+        public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
 
-        public async Task RemoveAsync(int id)
-        {
-            var project = await GetByIdAsync(id);
-            _context.Projects.Remove(project);
-            await _context.SaveChangesAsync();
-        }
+
     }
 }

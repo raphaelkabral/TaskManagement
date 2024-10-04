@@ -29,10 +29,10 @@ namespace TaskManagement.Application.Services
             if (project == null)
                 throw new Exception("Projeto não encontrado.");
 
-            if (!project.Tasks.Any(t => !t.Completed))
-                await _projectRepository.RemoveAsync(id);
-            else
+            if (!project.HasPendingTasks())
                 throw new Exception("Não é possível remover o projeto com tarefas pendentes.");
+
+            await _projectRepository.RemoveAsync(project);
         }
     }
 }

@@ -24,10 +24,9 @@ namespace TaskManagement.Application.Services
         {
             if (task.Project.Tasks.Count >= 20)
                 throw new Exception("Limite de 20 tarefas por projeto atingido.");
-
+            task.SetPriority(task.Priority);
             await _taskRepository.AddAsync(task);
         }
-
 
         public async System.Threading.Tasks.Task UpdateTask(Domain.Models.Task task)
         {
@@ -35,7 +34,7 @@ namespace TaskManagement.Application.Services
 
             existingTask.Histories.Add(new History
             {
-                ChangeDescription = "Updated task details.",
+                Description = "Updated task details.",
                 ChangeDate = DateTime.UtcNow,
                 UserId = 00 /* Get user ID from by front */
             });
@@ -50,7 +49,7 @@ namespace TaskManagement.Application.Services
         {
             var tasks = await _taskRepository.GetAllTasks();
 
-            var report = tasks.Where(t => t.Completed == true && t.CreatedAt >= DateTime.UtcNow.AddDays(-30))
+            var report = tasks.Where(t => t.Status == Domain.Enums.Status.Completed && t.CreatedAt >= DateTime.UtcNow.AddDays(-30))
                 .GroupBy(t => t.Project.UserId)
                 .Select(g => new
                 {

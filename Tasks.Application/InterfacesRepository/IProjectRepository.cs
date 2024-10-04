@@ -9,9 +9,14 @@ namespace TaskManagement.Application.InterfacesRepository
 {
     public interface IProjectRepository
     {
-        Task<IEnumerable<Project>> GetAllAsync();
+        Task<IEnumerable<Project>> GetAllAsync();      
+        Task<IEnumerable<Project>> GetAllByUserIdAsync(int userId);
         Task<Project> GetByIdAsync(int id);
         System.Threading.Tasks.Task AddAsync(Project project);
-        System.Threading.Tasks.Task RemoveAsync(int id);
+        System.Threading.Tasks.Task RemoveAsync(Project project);
+
+        //System.Threading.Tasks.Task RemoveAsync(int id);
+
+       
     }
 }
