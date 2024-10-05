@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Domain.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace TaskManagement.Application.InterfacesRepository
 {
@@ -12,8 +13,8 @@ namespace TaskManagement.Application.InterfacesRepository
         Task<IEnumerable<Project>> GetAllAsync();      
         Task<IEnumerable<Project>> GetAllByUserIdAsync(int userId);
         Task<Project> GetByIdAsync(int id);
-        System.Threading.Tasks.Task AddAsync(Project project);
-        System.Threading.Tasks.Task RemoveAsync(Project project);
+        Task AddAsync(Project project);
+        Task RemoveAsync(Project project);
 
         //System.Threading.Tasks.Task RemoveAsync(int id);
 

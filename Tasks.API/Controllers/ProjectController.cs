@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskManagement.Application.InterfaceService;
 using TaskManagement.Application.Services;
 using TaskManagement.Domain.Models;
 
@@ -8,9 +9,9 @@ namespace TaskManagement.API.Controllers
     [Route("api/[controller]")]
     public class ProjectController : Controller
     {
-        private readonly ProjectService _projectService;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(ProjectService projectService)
+        public ProjectController(IProjectService projectService)
         {
             _projectService = projectService;
         }
@@ -22,7 +23,7 @@ namespace TaskManagement.API.Controllers
         [HttpPost]
         public async Task<ActionResult> PostProjeto([FromBody] Project project)
         {
-            await _projectService.CreateProject(project);
+            await _projectService.AddProject(project);
             return CreatedAtAction(nameof(GetProjetos), new { id = project.Id }, project);
         }
 

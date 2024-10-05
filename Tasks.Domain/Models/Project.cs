@@ -24,7 +24,6 @@ namespace TaskManagement.Domain.Models
         {
             Tasks.Remove(task);
         }
-
-        public bool HasPendingTasks() => Tasks.Any(t => t.Status == Enums.Status.Pending);
+                
     }
 }

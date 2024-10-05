@@ -20,12 +20,7 @@ namespace TaskManagement.Domain.Models
         public ICollection<History> Histories { get; set; } = new List<History>();
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-        public Task(string description, Priority priority)
-        {
-            Description = description;
-            Priority = priority;
-        }
-
+      
         public void Update(string description, string status, int userId)
         {
             Histories.Add(new History
@@ -55,5 +50,8 @@ namespace TaskManagement.Domain.Models
             else
                 throw new InvalidOperationException("A prioridade não pode ser alterada após a criação.");
         }
+
+
+
     }
 }

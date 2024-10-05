@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaskManagement.Application.InterfaceService;
 using TaskManagement.Application.InterfacesRepository;
 using TaskManagement.Domain.Models;
 
 namespace TaskManagement.Application.Services
 {
-    public class TaskService
+    public class TaskService: ITaskService
     {
         private readonly ITaskRepository _taskRepository;
 
@@ -21,7 +22,8 @@ namespace TaskManagement.Application.Services
             await _taskRepository.GetByProjectIdAsync(projectId);
 
         public async System.Threading.Tasks.Task AddTask(Domain.Models.Task task)
-        {
+        {        
+
             if (task.Project.Tasks.Count >= 20)
                 throw new Exception("Limite de 20 tarefas por projeto atingido.");
             task.SetPriority(task.Priority);
@@ -36,9 +38,10 @@ namespace TaskManagement.Application.Services
             {
                 Description = "Updated task details.",
                 ChangeDate = DateTime.UtcNow,
-                UserId = 00 /* Get user ID from by front */
+                UserId = 00 
             });
 
+            task.Priority = existingTask.Priority;
             await _taskRepository.UpdateAsync(existingTask);
         }
 

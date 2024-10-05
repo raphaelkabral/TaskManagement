@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskManagement.Application.InterfaceService;
 using TaskManagement.Application.Services;
 
 namespace TaskManagement.API.Controllers
@@ -7,9 +8,9 @@ namespace TaskManagement.API.Controllers
     [Route("api/[controller]")]
     public class TaskController : Controller
     {
-        private readonly TaskService _taskService;
+        private readonly ITaskService _taskService;
 
-        public TaskController(TaskService taskService)
+        public TaskController(ITaskService taskService)
         {
             _taskService = taskService;
         }
